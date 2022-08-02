@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import './App.css'
 import axios from 'axios'
+import Card_Characters from './assets/components/Card_Characters'
 
 //INFORMATION ABOUT MARVEL CHARACTER
 
@@ -17,6 +18,11 @@ import axios from 'axios'
 
 function App() {
 
+
+
+  
+ 
+
   const [characters, setCharacters] = useState([])
 
   const URL = `https://gateway.marvel.com:443/v1/public/characters?ts=1&apikey=e9de6e97c2cb1970f1db9c79a8c48f9c&hash=eccfe1aa0468518a3eb902967b003b13`
@@ -29,18 +35,21 @@ function App() {
       .catch(err => console.log(err))
   },[])
 
-  console.log(characters)
+  //console.log(characters.length)
 
+  const getRandomCharaters = arr => {
+    const indexRandom = Math.floor(Math.random() * arr.length)
+    return arr[indexRandom]
+  }
+  console.log(getRandomCharaters(characters))
 
+ 
   return (
     <div className="App">
-      <div className="card">
-        <h2 className='card-title'>{characters[1]?.name}</h2>
-        <img src={`${characters[0]?.thumbnail.path}.${characters[1]?.thumbnail.extension}`} alt="" />
-        <div className="body-card">
-          <p>{characters[1]?.description}</p>
-        </div>
-      </div>
+      <Card_Characters character={getRandomCharaters(characters)}/>
+      <Card_Characters character={getRandomCharaters(characters)}/>
+      <Card_Characters character={getRandomCharaters(characters)}/>
+      
     </div>
   )
 }
